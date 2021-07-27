@@ -8,10 +8,7 @@ class Router {
     protected $routes = []; 
     protected $params = []; 
     
-    function __call(string $name, array $arguments){
-        echo('Ты ебанулся? Нет такого метода '.$name.'()');
-        die();
-    }
+    
     public function __construct(){
         $routes = require ('App\Config\Routes.php');
         foreach($routes as $route => $param){

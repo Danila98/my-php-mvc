@@ -4,14 +4,18 @@ namespace App\Core;
 use  App\Core\View;
 abstract class Controller {
 
-    protected $param_request;
+    protected $route;
     protected $view;
     protected $modal;
 
-    public function __construct($param_request){
-        $this->param_request = $param_request;
-        $this->view = new View($param_request);
-        $this->modal = $this->loadModel($param_request['controller']);
+    function __call(string $name, array $arguments){
+        echo(' Нет такого метода '.$name.'()');
+        die();
+    }
+    public function __construct($route){
+        $this->route = $route;
+        $this->view = new View($route);
+        $this->modal = $this->loadModel($route['controller']);
     }
 
     public function loadModel(string $name)

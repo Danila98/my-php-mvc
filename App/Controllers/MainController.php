@@ -8,8 +8,13 @@ class MainController extends Controller{
     
     public function indexAction()
     { 
+        
         $main = new Main();
-        $main->create(['name' => 'Вася', 'description' => 'test', 'price' => 20]);
+        $mains = $main->select()->row();
+        foreach($mains as $main){
+
+            dd($main->name);
+        }
         $this->view->render('главная');
     }
 }

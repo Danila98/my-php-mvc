@@ -2,8 +2,8 @@
 
 namespace App\Core;
 
-use App\Lib\Db;
-use App\Lib\QueryBilder;
+use App\Lib\Database\Db;
+use App\Lib\Database\ModelQueryBilder as QueryBilder;
 
 abstract class Model{
 
@@ -21,7 +21,7 @@ abstract class Model{
     }
     public function __construct()
     {
-        $this->db = new QueryBilder(Db::getConnetction());
+        $this->db = new QueryBilder(Db::getConnetction(), $this->table, get_called_class());
         if(count($this->fullable) > 0){
             $newLabels = [];
             foreach($this->fullable as $label){
@@ -37,15 +37,15 @@ abstract class Model{
     }
     public function select($col = "*")
     {
-        return $this->db->select(get_called_class(), $this->table, $col);
+        return $this->db->select($col);
     }
     public function create(array $vars)
     {
-        return $this->db->create($this->table, $vars);
+        return $this->db->create($vars);
     }
-    public function update(Model $model)
+    public function update()
     {
-        return $this->db->update($model);
+        return $this->db->update($this->fullable);
     }
     public function delete()
     {

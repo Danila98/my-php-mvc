@@ -11,6 +11,7 @@ class MainController extends Controller{
         
         $main = new Main();
         $mains = $main->select()->row();
+
         foreach($mains as $main){
 
             dd($main->name);
